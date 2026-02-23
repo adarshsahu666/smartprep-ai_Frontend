@@ -25,6 +25,19 @@ if (!document.getElementById('nb-kf')) {
       from { opacity:0; transform: translateY(24px) scale(0.96); }
       to   { opacity:1; transform: translateY(0) scale(1); }
     }
+    @keyframes mobileMenuIn {
+      from { opacity:0; transform: translateY(-10px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .navbar-center { display: none !important; }
+      .navbar-hamburger { display: flex !important; }
+      .navbar-right-desktop { display: none !important; }
+    }
+    @media (min-width: 769px) {
+      .navbar-hamburger { display: none !important; }
+      .navbar-mobile-menu { display: none !important; }
+    }
   `;
   document.head.appendChild(st);
 }
@@ -67,49 +80,34 @@ function ConfirmModal({ onConfirm, onCancel }) {
         fontFamily: "'DM Sans', sans-serif",
         animation: 'modalCardIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
       }}>
-
-        {/* Icon badge */}
         <div style={{
           width: '60px', height: '60px', borderRadius: '18px',
           background: 'linear-gradient(135deg, #eff6ff, #f5f3ff)',
           border: '1.5px solid #bfdbfe',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '28px', marginBottom: '22px',
-        }}>
-          🚀
-        </div>
+        }}>🚀</div>
 
-        {/* Heading */}
         <h2 style={{
           fontFamily: "'Syne', sans-serif",
           fontWeight: 800, fontSize: '22px',
           color: '#0f172a', letterSpacing: '-0.6px', marginBottom: '10px',
-        }}>
-          Ready to start practicing?
-        </h2>
+        }}>Ready to start practicing?</h2>
 
-        {/* Subtext */}
-        <p style={{
-          fontSize: '15px', color: '#64748b',
-          lineHeight: 1.7, marginBottom: '24px',
-        }}>
-          You'll pick a topic, set difficulty, and get AI-generated MCQs with a timer. Each session sends a fresh request to the backend.
+        <p style={{ fontSize: '15px', color: '#64748b', lineHeight: 1.7, marginBottom: '24px' }}>
+          You'll pick a topic, set difficulty, and get AI-generated MCQs with a timer.
         </p>
 
-        {/* Feature chips */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '28px' }}>
           {['AI-Generated', 'Timed Questions', 'Instant Feedback'].map(tag => (
             <span key={tag} style={{
               background: '#f8fafc', border: '1px solid #e2e8f0',
               borderRadius: '100px', padding: '5px 12px',
               fontSize: '12px', color: '#64748b', fontWeight: 500,
-            }}>
-              ✓ {tag}
-            </span>
+            }}>✓ {tag}</span>
           ))}
         </div>
 
-        {/* Actions */}
         <div style={{ display: 'flex', gap: '10px' }}>
           <button
             onClick={onCancel}
@@ -117,40 +115,46 @@ function ConfirmModal({ onConfirm, onCancel }) {
               flex: 1, background: '#f8fafc',
               border: '1.5px solid #e2e8f0', borderRadius: '12px',
               padding: '13px 0', fontFamily: "'DM Sans', sans-serif",
-              fontSize: '14px', fontWeight: 500,
-              color: '#64748b', cursor: 'pointer', transition: 'all 0.18s',
+              fontSize: '14px', fontWeight: 500, color: '#64748b', cursor: 'pointer',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#334155'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#64748b'; }}
-          >
-            Not Yet
-          </button>
+          >Not Yet</button>
 
           <button
             onClick={onConfirm}
             style={{
-              flex: 2, border: 'none', borderRadius: '12px',
-              padding: '13px 0',
+              flex: 2, border: 'none', borderRadius: '12px', padding: '13px 0',
               background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
               fontFamily: "'Syne', sans-serif",
-              fontSize: '14px', fontWeight: 700, color: '#fff',
-              cursor: 'pointer', transition: 'all 0.18s',
+              fontSize: '14px', fontWeight: 700, color: '#fff', cursor: 'pointer',
               boxShadow: '0 4px 14px rgba(37,99,235,0.32)',
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,0.44)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(37,99,235,0.32)'; }}
-          >
-            Yes, Let's Go! →
-          </button>
+          >Yes, Let's Go! →</button>
         </div>
-
       </div>
     </div>
   );
 }
 
 /* ─────────────────────────────
-   NAVBAR
+   LOGO SVG — Brain icon
+───────────────────────────── */
+const LogoIcon = () => (
+  <div style={{
+    width: '34px', height: '34px', borderRadius: '10px',
+    background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    boxShadow: '0 4px 12px rgba(37,99,235,0.35)', flexShrink: 0,
+  }}>
+    {/* Brain SVG Icon */}
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3.16A2.5 2.5 0 0 1 9.5 2Z"/>
+      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3.16A2.5 2.5 0 0 0 14.5 2Z"/>
+    </svg>
+  </div>
+);
+
+/* ─────────────────────────────
+   STYLES
 ───────────────────────────── */
 const S = {
   nav: {
@@ -166,12 +170,6 @@ const S = {
   logo: {
     textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '9px',
     fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '19px', color: '#0f172a',
-  },
-  logoBox: {
-    width: '32px', height: '32px', borderRadius: '9px',
-    background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: '15px', flexShrink: 0, boxShadow: '0 3px 10px rgba(37,99,235,0.35)',
   },
   accent: { color: '#2563eb' },
   centerList: { display: 'flex', alignItems: 'center', gap: '2px', listStyle: 'none', margin: 0, padding: 0 },
@@ -190,12 +188,6 @@ const S = {
     padding: '5px 12px 5px 5px',
     fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 500, color: '#334155',
     transition: 'all 0.18s',
-  },
-  avatar: {
-    width: '26px', height: '26px', borderRadius: '50%',
-    background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontSize: '11px', fontWeight: 700, color: '#fff', flexShrink: 0,
   },
   dropWrap: { position: 'relative' },
   dropdown: {
@@ -227,12 +219,52 @@ const S = {
     cursor: 'pointer', transition: 'all 0.2s',
     boxShadow: '0 4px 14px rgba(37,99,235,0.32)', whiteSpace: 'nowrap', marginLeft: '8px',
   },
+  // Hamburger button
+  hamburger: {
+    background: 'none', border: '1.5px solid #e2e8f0', borderRadius: '10px',
+    width: '40px', height: '40px', cursor: 'pointer',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    fontSize: '18px', color: '#334155', transition: 'all 0.18s',
+    marginLeft: 'auto',
+  },
+  // Mobile menu overlay
+  mobileMenu: {
+    position: 'fixed', top: '66px', left: 0, right: 0, bottom: 0,
+    background: 'rgba(255,255,255,0.98)', backdropFilter: 'blur(20px)',
+    zIndex: 99, padding: '24px 24px 40px',
+    display: 'flex', flexDirection: 'column', gap: '8px',
+    animation: 'mobileMenuIn 0.2s ease',
+    overflowY: 'auto',
+  },
+  mobileLink: {
+    display: 'flex', alignItems: 'center', gap: '12px',
+    padding: '14px 16px', borderRadius: '12px',
+    fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 500,
+    color: '#334155', textDecoration: 'none', border: 'none',
+    background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left',
+    transition: 'all 0.15s',
+  },
+  mobileDivider: { height: '1px', background: '#f1f5f9', margin: '8px 0' },
+  mobileCta: {
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    gap: '8px', padding: '15px',
+    background: 'linear-gradient(135deg, #2563eb, #7c3aed)', color: '#fff',
+    border: 'none', borderRadius: '14px', fontFamily: "'Syne', sans-serif",
+    fontSize: '15px', fontWeight: 700, cursor: 'pointer', marginTop: '8px',
+    boxShadow: '0 4px 14px rgba(37,99,235,0.32)',
+  },
 };
 
 const DROP_ITEMS = [
-  { label: 'Portfolio', icon: '🌐',            href: MY_PORTFOLIO },
-  { label: 'GitHub',    icon: <GitHubIcon />,   href: MY_GITHUB    },
-  { label: 'LinkedIn',  icon: <LinkedInIcon />, href: MY_LINKEDIN  },
+  { label: 'Portfolio', icon: '🌐', href: MY_PORTFOLIO },
+  { label: 'GitHub',    icon: <GitHubIcon />, href: MY_GITHUB },
+  { label: 'LinkedIn',  icon: <LinkedInIcon />, href: MY_LINKEDIN },
+];
+
+const NAV_ITEMS = [
+  { label: 'Home', to: '/', icon: '🏠' },
+  { label: 'Practice', to: '/quiz', icon: '📝', isModal: true },
+  { label: 'AI Chat', to: '/chat', icon: '🤖' },
 ];
 
 export default function Navbar() {
@@ -243,6 +275,7 @@ export default function Navbar() {
   const [ctaHov, setCtaHov]           = useState(false);
   const [btnHov, setBtnHov]           = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [menuOpen, setMenuOpen]       = useState(false);
   const location  = useLocation();
   const navigate  = useNavigate();
   const dropRef   = useRef(null);
@@ -259,10 +292,14 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', fn);
   }, []);
 
+  // Lock scroll when modal or mobile menu open
   useEffect(() => {
-    document.body.style.overflow = showConfirm ? 'hidden' : '';
+    document.body.style.overflow = (showConfirm || menuOpen) ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [showConfirm]);
+  }, [showConfirm, menuOpen]);
+
+  // Close menu on route change
+  useEffect(() => { setMenuOpen(false); }, [location]);
 
   const handleConfirm = () => {
     setShowConfirm(false);
@@ -271,52 +308,43 @@ export default function Navbar() {
 
   const navBtnStyle = (to) => ({
     ...S.navBtn,
-    ...(location.pathname === to          ? { color: '#2563eb', background: '#eff6ff' } : {}),
+    ...(location.pathname === to ? { color: '#2563eb', background: '#eff6ff' } : {}),
     ...(hovNav === to && location.pathname !== to ? { color: '#0f172a', background: '#f1f5f9' } : {}),
   });
 
-  const rightBtnStyle = (key) => ({
-    ...S.navBtn,
-    ...(hovNav === key ? { color: '#0f172a', background: '#f1f5f9' } : {}),
-  });
-
-  const initials = MY_NAME.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
-
   return (
     <>
+      {/* ── NAVBAR ── */}
       <nav style={{ ...S.nav, ...(scrolled ? S.scrolled : {}) }}>
 
         {/* LEFT — Logo */}
         <div>
           <Link to="/" style={S.logo}>
-            <div style={S.logoBox}>⚡</div>
+            <LogoIcon />
             Smart<span style={S.accent}>Prep</span>
+            <span style={{
+              fontSize: '10px', fontWeight: 600, color: '#7c3aed',
+              background: '#f5f3ff', border: '1px solid #ddd6fe',
+              borderRadius: '6px', padding: '2px 6px', marginLeft: '2px',
+            }}>AI</span>
           </Link>
         </div>
 
-        {/* CENTER — Nav */}
-        <ul style={S.centerList}>
-
-          {/* Home */}
+        {/* CENTER — Desktop Nav */}
+        <ul className="navbar-center" style={S.centerList}>
           <li>
             <Link to="/" style={navBtnStyle('/')}
               onMouseEnter={() => setHovNav('/')} onMouseLeave={() => setHovNav(null)}>
               Home
             </Link>
           </li>
-
-          {/* Practice — triggers confirm */}
           <li>
-            <button
-              style={navBtnStyle('/quiz')}
+            <button style={navBtnStyle('/quiz')}
               onClick={() => setShowConfirm(true)}
-              onMouseEnter={() => setHovNav('/quiz')} onMouseLeave={() => setHovNav(null)}
-            >
+              onMouseEnter={() => setHovNav('/quiz')} onMouseLeave={() => setHovNav(null)}>
               Practice
             </button>
           </li>
-
-          {/* AI Chat */}
           <li>
             <Link to="/chat" style={navBtnStyle('/chat')}
               onMouseEnter={() => setHovNav('/chat')} onMouseLeave={() => setHovNav(null)}>
@@ -325,57 +353,30 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* RIGHT — About + Profile ▼ + CTA */}
-        <div style={S.right}>
-
-          {/* About */}
-          {/* <Link to="/about" style={rightBtnStyle('about')}
-            onMouseEnter={() => setHovNav('about')} onMouseLeave={() => setHovNav(null)}>
-            About
-          </Link> */}
+        {/* RIGHT — Desktop */}
+        <div className="navbar-right-desktop" style={S.right}>
 
           {/* Profile dropdown */}
           <div style={S.dropWrap} ref={dropRef}>
             <button
               style={{
                 ...S.profileBtn,
-                ...(dropOpen || btnHov
-                  ? { borderColor: "#93c5fd", background: "#f8fafc" }
-                  : {}),
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
+                ...(dropOpen || btnHov ? { borderColor: '#93c5fd', background: '#f8fafc' } : {}),
               }}
-              onClick={() => setDropOpen((o) => !o)}
+              onClick={() => setDropOpen(o => !o)}
               onMouseEnter={() => setBtnHov(true)}
               onMouseLeave={() => setBtnHov(false)}
             >
-              {/* Profile Image */}
-              <img
-                src={profileImg}
-                alt="Profile"
-                style={{
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid #e5e7eb",
-                }}
-              />
-
+              <img src={profileImg} alt="Profile" style={{
+                width: '28px', height: '28px', borderRadius: '50%',
+                objectFit: 'cover', border: '2px solid #e5e7eb',
+              }} />
               <span>Profile</span>
-
-              <span
-                style={{
-                  fontSize: "10px",
-                  color: "#94a3b8",
-                  display: "inline-block",
-                  transition: "transform 0.2s",
-                  transform: dropOpen ? "rotate(180deg)" : "none",
-                }}
-              >
-                ▾
-              </span>
+              <span style={{
+                fontSize: '10px', color: '#94a3b8',
+                transition: 'transform 0.2s',
+                transform: dropOpen ? 'rotate(180deg)' : 'none',
+              }}>▾</span>
             </button>
 
             {dropOpen && (
@@ -386,8 +387,7 @@ export default function Navbar() {
                 </div>
 
                 {DROP_ITEMS.map(({ label, icon, href }) => (
-                  <a
-                    key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                     style={{ ...S.dropItem, ...(hovDrop === label ? { background: '#f8fafc', color: '#2563eb' } : {}) }}
                     onMouseEnter={() => setHovDrop(label)} onMouseLeave={() => setHovDrop(null)}
                     onClick={() => setDropOpen(false)}
@@ -402,8 +402,7 @@ export default function Navbar() {
 
                 <div style={S.dropDivider} />
 
-                <a
-                  href={`mailto:${MY_EMAIL}`}
+                <a href={`mailto:${MY_EMAIL}`}
                   style={{ ...S.dropItem, color: '#2563eb', background: '#eff6ff', fontWeight: 600, ...(hovDrop === 'contact' ? { background: '#dbeafe' } : {}) }}
                   onMouseEnter={() => setHovDrop('contact')} onMouseLeave={() => setHovDrop(null)}
                   onClick={() => setDropOpen(false)}
@@ -415,18 +414,123 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Start Quiz CTA — also triggers confirm */}
+          {/* CTA */}
           <button
             style={{ ...S.cta, ...(ctaHov ? { transform: 'translateY(-1px)', boxShadow: '0 8px 24px rgba(37,99,235,0.44)' } : {}) }}
             onClick={() => setShowConfirm(true)}
-            onMouseEnter={() => setCtaHov(true)} onMouseLeave={() => setCtaHov(false)}
+            onMouseEnter={() => setCtaHov(true)}
+            onMouseLeave={() => setCtaHov(false)}
           >
             Start Quiz →
           </button>
         </div>
+
+        {/* RIGHT — Hamburger (mobile only) */}
+        <div className="navbar-hamburger" style={{ display: 'none', justifyContent: 'flex-end' }}>
+          <button
+            style={{
+              ...S.hamburger,
+              ...(menuOpen ? { background: '#eff6ff', borderColor: '#93c5fd', color: '#2563eb' } : {}),
+            }}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? '✕' : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            )}
+          </button>
+        </div>
       </nav>
 
-      {/* Confirmation modal */}
+      {/* ── MOBILE MENU ── */}
+      {menuOpen && (
+        <div className="navbar-mobile-menu" style={S.mobileMenu}>
+
+          {/* Profile card */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '12px',
+            padding: '16px', background: '#f8fafc', borderRadius: '14px',
+            border: '1px solid #e2e8f0', marginBottom: '8px',
+          }}>
+            <img src={profileImg} alt="Profile" style={{
+              width: '44px', height: '44px', borderRadius: '50%',
+              objectFit: 'cover', border: '2px solid #e5e7eb',
+            }} />
+            <div>
+              <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '15px', color: '#0f172a' }}>{MY_NAME}</div>
+              <div style={{ fontSize: '12px', color: '#94a3b8' }}>{MY_ROLE}</div>
+            </div>
+          </div>
+
+          {/* Nav links */}
+          {NAV_ITEMS.map(({ label, to, icon, isModal }) => (
+            isModal ? (
+              <button key={label}
+                style={{
+                  ...S.mobileLink,
+                  ...(location.pathname === to ? { color: '#2563eb', background: '#eff6ff' } : {}),
+                }}
+                onClick={() => { setMenuOpen(false); setShowConfirm(true); }}
+              >
+                <span style={{ fontSize: '18px' }}>{icon}</span>
+                {label}
+                {location.pathname === to && <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#2563eb' }}>●</span>}
+              </button>
+            ) : (
+              <Link key={label} to={to}
+                style={{
+                  ...S.mobileLink,
+                  ...(location.pathname === to ? { color: '#2563eb', background: '#eff6ff' } : {}),
+                }}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span style={{ fontSize: '18px' }}>{icon}</span>
+                {label}
+                {location.pathname === to && <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#2563eb' }}>●</span>}
+              </Link>
+            )
+          ))}
+
+          <div style={S.mobileDivider} />
+
+          {/* Social links */}
+          {DROP_ITEMS.map(({ label, icon, href }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+              style={S.mobileLink} onClick={() => setMenuOpen(false)}
+            >
+              <span style={{
+                width: '32px', height: '32px', borderRadius: '8px',
+                background: '#f1f5f9', border: '1px solid #e2e8f0',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px',
+              }}>{icon}</span>
+              {label}
+              <span style={{ marginLeft: 'auto', fontSize: '11px', color: '#cbd5e1' }}>↗</span>
+            </a>
+          ))}
+
+          <a href={`mailto:${MY_EMAIL}`} style={{ ...S.mobileLink, color: '#2563eb' }} onClick={() => setMenuOpen(false)}>
+            <span style={{
+              width: '32px', height: '32px', borderRadius: '8px',
+              background: '#dbeafe', border: '1px solid #bfdbfe',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px',
+            }}>✉️</span>
+            Contact Me
+          </a>
+
+          <div style={S.mobileDivider} />
+
+          {/* CTA */}
+          <button style={S.mobileCta} onClick={() => { setMenuOpen(false); setShowConfirm(true); }}>
+            🚀 Start Quiz Now
+          </button>
+        </div>
+      )}
+
+      {/* ── CONFIRM MODAL ── */}
       {showConfirm && (
         <ConfirmModal
           onConfirm={handleConfirm}
