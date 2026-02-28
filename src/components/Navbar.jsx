@@ -6,7 +6,7 @@ import profileImg from "../assets/109846586.jpg";
 const MY_NAME      = 'Adarsh Sahu';
 const MY_ROLE      = 'Full Stack Developer';
 const MY_EMAIL     = 'sahuadarsh96@gmail.com';
-const MY_PORTFOLIO = 'https://your-portfolio.com';
+const MY_PORTFOLIO = 'https://adarsh-portfolio.up.railway.app/';
 const MY_GITHUB    = 'https://github.com/adarshsahu666';
 const MY_LINKEDIN  = 'https://www.linkedin.com/in/adarsh-sahu-7b03a2242/';
 // ────────────────────────────────────────────────────────────
